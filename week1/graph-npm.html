@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <script src="/assets/js/jquery.min.js"></script>
+       <script src="/assets/js/papaparse.min.js"></script>
+       <script type="text/javascript" src="/assets/js/echarts.js"></script>
+       <script src="/assets/js/bootstrap.min.js"></script>
+       <script src="/assets/js/week1.js"></script>
+       <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+   </head>
+   <body style="height: 100%; margin: 0;overflow:hidden;">
+    <button id="international" type="button">International Exchange!</button>
+    <button id="domestic" type="button">Domestic Exchange!</button>
+    <select id="graphType" onchange="changeType()">
+      <option value="none">None
+      <option value="circular">Circular
+      <option value="force">Force
+    </select>
+    <div id="container" style="height: 100%;"></div>
+   </body>
+</html>
