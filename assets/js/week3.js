@@ -15,7 +15,7 @@ var numServer = {};
 var numActivity = {};
 $(document).ready(function(){
    // $("#loadCSV").click(function(){
-       Papa.parse('assets/csv/login-20170102-anon.csv',{
+       Papa.parse('/assets/csv/login-20170102-anon.csv',{
            delimiter: " ",
            header: false,
            download: true,

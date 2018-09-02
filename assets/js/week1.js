@@ -21,7 +21,7 @@ $(document).ready(function(){
            download: true,
            skipEmptyLines: true,
            complete: function(results) {
-               console.log("results:", results);
+               // console.log("results:", results);
                genGraph(results);
            }
        });
@@ -38,7 +38,7 @@ $(document).ready(function(){
            download: true,
            skipEmptyLines: true,
            complete: function(results) {
-               console.log("results:", results);
+               // console.log("results:", results);
 
                genGraph(results);
            }
@@ -126,13 +126,13 @@ $(document).ready(function(){
      edges.push(edge);
 
      if(type.indexOf(results.data[i]['Type']) === -1){
-       console.log(results.data[i]['Type']);
+       // console.log(results.data[i]['Type']);
        type.push(results.data[i]['Type']);
      }
    }
-   console.log('max size',max);
-   console.log('num node',numNode);
-   console.log('ans',ans);
+   // console.log('max size',max);
+   // console.log('num node',numNode);
+   // console.log('ans',ans);
    var jsonData = {'nodes':nodes,'edges':edges};
    var jsonString = JSON.stringify(jsonData);
    json = jsonData;
@@ -140,6 +140,7 @@ $(document).ready(function(){
 
  }
  function draw() {
+   console.log(json);
    var dom = document.getElementById("container");
    var myChart = echarts.init(dom);
    var app = {};
@@ -180,10 +181,42 @@ $(document).ready(function(){
                    };
                }),
                edges: json.edges.map(function (edge) {
-                   return {
+                   if(edge.size<=0.5){
+                     return {
                        source: edge.sourceID,
-                       target: edge.targetID
-                   };
+                       target: edge.targetID,
+                       lineStyle: {
+                           normal: {
+                               width: 0.5,
+                               // curveness: 0.3,
+                               opacity: 0.7
+                           }
+                       }
+                     };
+                   }else{
+                     return {
+                       source: edge.sourceID,
+                       target: edge.targetID,
+                       lineStyle: {
+                           normal: {
+                               width: 0.5,
+                               // curveness: 0.3,
+                               opacity: 0.7
+                           },
+                           emphasis: {
+                               width: edge.size,
+                               // curveness: 0.3,
+                               opacity: 0.7
+                           }
+                       }
+                     };
+                   }
+
+                   // return {
+                   //     source: edge.sourceID,
+                   //     target: edge.targetID,
+                   //
+                   // };
                }),
                label: {
                    emphasis: {
@@ -193,17 +226,7 @@ $(document).ready(function(){
                },
                roam: true,
                focusNodeAdjacency: true,
-               lineStyle: {
-                   normal: {
-                       width: 0.5,
-                       // curveness: 0.3,
-                       opacity: 0.7
-                   }
-                   // json.edges.map(function (edge) {
-                   //   console.log(edge.size);
-                   //     return {width: edge.size};
-                   // }),
-               }
+
            }
        ]
    }, true);
