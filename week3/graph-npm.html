@@ -9,8 +9,9 @@
        <script src="/assets/js/week3.js"></script>
        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
        <script type="text/javascript" src="/assets/js/echarts.js"></script>
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
    </head>
-   <body style="height: 100%; margin: 0;overflow:hidden;">
+   <body style="height: 100%; margin: 0;overflow:hidden;background: #eee;">
     <!-- <button id="loadCSV" type="button">Load CSV!</button> -->
     <!-- <select id="graphType" onchange="changeType()">
       <option value="user" selected>USER
@@ -18,15 +19,16 @@
       <option value="login">Login/Logout
     </select> -->
     <div class="container-fluid">
+      <a href="/"><button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-home"></i></button></a>
       <div class="row">
         <div class="col-6 col-md-4">
-          <div id="container-user" style="height: 50vh;"></div>
+          <div id="container-user" style="height: 45vh;"></div>
         </div>
         <div class="col-6 col-md-4">
-          <div id="container-ip" style="height: 50vh;"></div>
+          <div id="container-ip" style="height: 45vh;"></div>
         </div>
         <div class="col-6 col-md-4">
-          <div id="container-login" style="height: 50vh;"></div>
+          <div id="container-login" style="height: 45vh;"></div>
         </div>
       </div>
       <div class="row">

@@ -3,11 +3,13 @@ var edges = []
 var size = {};
 var names = {}
 var ans = [];
-var startSize = 1;
+var startSize = 3;
 var json;
 var graphName;
 var graphType = 'none';
 var type = [];
+var categories = [];
+var colors = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
 $(document).ready(function(){
    $("#international").click(function(){
        nodes = [];
@@ -16,6 +18,7 @@ $(document).ready(function(){
        names = {}
        ans = [];
        type = [];
+       categories = [];
        Papa.parse('/assets/csv/2018-07-International Exchange - _Index.csv',{
            header: true,
            download: true,
@@ -33,6 +36,7 @@ $(document).ready(function(){
        names = {}
        ans = [];
        type = [];
+       categories = [];
        Papa.parse('/assets/csv/2018-07-Domestic Exchange - Index.csv',{
            header: true,
            download: true,
@@ -50,18 +54,24 @@ $(document).ready(function(){
    var max = 0;
    var numNode = 0;
    for (var i = 0; i < results.data.length; i++) {
-     var color = '#'+ Math.floor(Math.random()*16777215).toString(16);
+     if(!(type.includes(results.data[i]['Type']))){
+       type.push(results.data[i]['Type']);
+       categories.push({name:results.data[i]['Type']});
+     }
+     var color = colors[type.indexOf(results.data[i]['Type'])];
+     // var color = '#'+ Math.floor(Math.random()*16777215).toString(16);
      if( ans.indexOf(results.data[i]['ASN']) === -1 ){
        numNode +=1;
          var node = {
-           'category': results.data[i]['Type'],
+           'type': results.data[i]['Type'],
            'id': results.data[i]['ASN'],
            'x': Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000),
            'y': Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000),
            'attributes': {},
            'label': results.data[i]['ASN'],
            'color': color,
-           'size': startSize
+           'size': startSize,
+           'category': type.indexOf(results.data[i]['Type']),
          }
          nodes.push(node);
         // size[results.data[i]['ASN']] = startSize;
@@ -76,7 +86,7 @@ $(document).ready(function(){
        Object.keys(nodes).forEach(function(key) {
          // console.log(key);
          if (nodes[key].id == results.data[i]['ASN']) {
-           nodes[key].size += 0.1;
+           nodes[key].size += 0.3;
            if(nodes[key].size>max){max = nodes[key].size;}
            // console.log('has test2');
          }
@@ -85,19 +95,9 @@ $(document).ready(function(){
       }
       if( ans.indexOf(results.data[i]['ASN-source']) === -1 ){
         numNode +=1;
-        // var nameDummy;
-        // Object.keys(results.data).forEach(function(key) {
-        //   // console.log(key);
-        //   if (results.data[key].ASN == results.data[i]['ASN-source']) {
-        //     console.log('Match',results.data[key].Name, results.data[i]['Name']);
-        //     nameDummy = results.data[key].Name;
-        //     return false;
-        //     // nodes[key].size += 0.1;
-        //     // if(nodes[key].size>max){max = nodes[key].size;}
-        //   }
-        // });
+
           var node = {
-            'category': results.data[i]['Type'],
+            'type': results.data[i]['Type'],
             'id': results.data[i]['ASN-source'],
             'x': Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000),
             'y': Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000),
@@ -112,7 +112,7 @@ $(document).ready(function(){
         Object.keys(nodes).forEach(function(key) {
           // console.log(key);
           if (nodes[key].id == results.data[i]['ASN-source']) {
-            nodes[key].size += 0.1;
+            nodes[key].size += 0.3;
             if(nodes[key].size>max){max = nodes[key].size;}
           }
         });
@@ -140,7 +140,7 @@ $(document).ready(function(){
 
  }
  function draw() {
-   console.log(json);
+   console.log(categories);
    var dom = document.getElementById("container");
    var myChart = echarts.init(dom);
    var app = {};
@@ -149,16 +149,29 @@ $(document).ready(function(){
        title: {
            text: graphName
        },
+       legend: {
+         data: categories.map(function (a) {
+              return a.name;
+          })
+       },
        tooltip: {},
        animationDurationUpdate: 1500,
        animationEasingUpdate: 'quinticInOut',
        series : [
            {
+               // name: 'ISP-Inter',
+               // name: function () {
+               //   console.log('ISP-Inter');
+               //     return 'ISP-Inter';
+               // },
                type: 'graph',
                layout: graphType,
                legendHoverLink: true,
                progressiveThreshold: 700,
                draggable: true,
+               circular: {
+                    rotateLabel: true
+                },
                force: {
                    // initLayout: 'circular',
                    edgeLength: 200,
@@ -166,7 +179,9 @@ $(document).ready(function(){
                    gravity: 0.000000000002,
                    layoutAnimation: true,
                },
+               categories: categories,
                data: json.nodes.map(function (node) {
+                 // console.log(node);
                    return {
                        x: node.x,
                        y: node.y,
@@ -177,7 +192,22 @@ $(document).ready(function(){
                            normal: {
                                color: node.color
                            }
-                       }
+                       },
+                       categories: node.category,
+                       label: {
+                          normal: {
+                              show: node.size > 6,
+                              position: 'right',
+                              backgroundColor:'white',
+                              formatter: '{b}'
+                              // textBorderColor: 'black',
+                              // textborderWidth: 5
+                          },
+                           emphasis: {
+                               position: 'right',
+                               show: true
+                           }
+                       },
                    };
                }),
                edges: json.edges.map(function (edge) {
@@ -218,12 +248,7 @@ $(document).ready(function(){
                    //
                    // };
                }),
-               label: {
-                   emphasis: {
-                       position: 'right',
-                       show: true
-                   }
-               },
+
                roam: true,
                focusNodeAdjacency: true,
 

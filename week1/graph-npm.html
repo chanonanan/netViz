@@ -8,15 +8,32 @@
        <script src="/assets/js/bootstrap.min.js"></script>
        <script src="/assets/js/week1.js"></script>
        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+       <link rel="stylesheet" href="/assets/css/week1.css">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
    </head>
-   <body style="height: 100%; margin: 0;overflow:hidden;">
-    <button id="international" type="button">International Exchange!</button>
-    <button id="domestic" type="button">Domestic Exchange!</button>
-    <select id="graphType" onchange="changeType()">
-      <option value="none">None
-      <option value="circular">Circular
-      <option value="force">Force
-    </select>
-    <div id="container" style="height: 100%;"></div>
+   <body style="height: 100%; margin: 0;overflow:hidden;background: #eee;">
+     <!-- <div class="row" style="height: 100%;">
+       <div class="col-md-2 sidebar">
+         <ul>
+           <li><a href="/">HOME</a></li>
+           <li><button id="international" type="button">International Exchange!</button></li>
+           <li><button id="domestic" type="button">Domestic Exchange!</button></li>
+         </ul>
+       </div>
+       <div class="col-md-10" style="height: 100%;">
+         <div id="container" style="height: 100%;"></div>
+       </div>
+     </div> -->
+     <div class="container-fluid" style="height: 100%;">
+      <a href="/"><button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-home"></i></button></a>
+      <button id="international" type="button" class="btn btn-secondary btn-lg">International Exchange!</button>
+      <button id="domestic" type="button" class="btn btn-secondary btn-lg">Domestic Exchange!</button>
+      <select id="graphType"class="btn btn-light btn-lg" onchange="changeType()">
+        <option value="none">None
+        <option value="circular">Circular
+        <option value="force">Force
+      </select>
+      <div id="container" style="height: 100%;"></div>
+    </div>
    </body>
 </html>
