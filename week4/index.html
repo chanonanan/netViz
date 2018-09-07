@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <script src="/assets/js/jquery.min.js"></script>
+       <script src="/assets/js/papaparse.min.js"></script>
+       <script src="/assets/js/moment.js"></script>
+       <script src="/assets/js/bootstrap.min.js"></script>
+       <script src="/assets/js/week4.js"></script>
+       <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+       <link rel="stylesheet" href="/assets/css/week4.css">
+       <link rel="stylesheet" href="/assets/css/fontawesome/all.css">
+       <script type="text/javascript" src="/assets/js/echarts.js"></script>
+   </head>
+   <body style="height: 100%; margin: 0;background: #eee;">
+    <!-- <button id="loadCSV" type="button">Load CSV!</button> -->
+    <!-- <select id="graphType" onchange="changeType()">
+      <option value="user" selected>USER
+      <option value="ip">IP
+      <option value="login">Login/Logout
+    </select> -->
+    <div class="container-fluid">
+      <a href="/"><button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-home"></i></button></a>
+      <div class="row">
+        <div class="col-6 col-md-6">
+          <div id="container-irregular" style="height: 50vh;"></div>
+        </div>
+        <div class="col-6 col-md-6">
+          <div id="container-percentage" style="height: 50vh;"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-12">
+          <div id="container-timeline" style="height: 50vh;"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-6">
+          <div id="container-egress" style="height: 50vh;"></div>
+        </div>
+        <div class="col-6 col-md-6">
+          <div id="container-ingress" style="height: 50vh;"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-6">
+          <div id="container-type-egress" style="height: 42vh;"></div>
+        </div>
+        <div class="col-6 col-md-6">
+          <div id="container-type-ingress" style="height: 42vh;"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+   </body>
+</html>

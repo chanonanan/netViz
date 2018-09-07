@@ -192,7 +192,7 @@ $(document).ready(function(){
              type: 'line'
          }
      ],
-     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#00335b','#f94f8e']
+     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#3f7c9d','#f94f8e']
    };
    ;
    if (option && typeof option === "object") {
@@ -237,7 +237,7 @@ $(document).ready(function(){
              // color: '#00b7c6'
          },
      ],
-     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#00335b','#f94f8e']
+     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#3f7c9d','#f94f8e']
    };
    ;
    if (option && typeof option === "object") {
@@ -285,7 +285,7 @@ $(document).ready(function(){
              type: 'line'
          },
      ],
-     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#00335b','#f94f8e']
+     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#3f7c9d','#f94f8e']
    };
    ;
    if (option && typeof option === "object") {
@@ -373,7 +373,7 @@ $(document).ready(function(){
              }
          }
      ],
-     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#00335b','#f94f8e']
+     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#3f7c9d','#f94f8e']
  };
    ;
    if (option && typeof option === "object") {
@@ -415,7 +415,7 @@ $(document).ready(function(){
              }
          }
      ],
-     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#00335b','#f94f8e']
+     color: ['#afbab2','#00b7c6','#8499a5','#f9c9a3','#6d87a8','#00a0c4','#dbe06b','#076d54','#3f7c9d','#f94f8e']
  };
    ;
    if (option && typeof option === "object") {

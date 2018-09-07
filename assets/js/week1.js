@@ -56,7 +56,7 @@ $(document).ready(function(){
    for (var i = 0; i < results.data.length; i++) {
      if(!(type.includes(results.data[i]['Type']))){
        type.push(results.data[i]['Type']);
-       categories.push({name:results.data[i]['Type']});
+       categories.push({name:results.data[i]['Type'],base:results.data[i]['Type'],keyword:{}});
      }
      var color = colors[type.indexOf(results.data[i]['Type'])];
      // var color = '#'+ Math.floor(Math.random()*16777215).toString(16);
@@ -140,7 +140,7 @@ $(document).ready(function(){
 
  }
  function draw() {
-   console.log(categories);
+   console.log(categories,json);
    var dom = document.getElementById("container");
    var myChart = echarts.init(dom);
    var app = {};
