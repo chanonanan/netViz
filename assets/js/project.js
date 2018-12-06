@@ -1,13 +1,18 @@
 var active = {};
 var blockIP = [];
+
+
+var x = [];
+var data = [];
+var dataA = [];
+var dataB = [];
+var test = {};
+var series = [];
+var legend = [];
 var client = new $.es.Client({
   hosts: '10.3.132.185:9200'
 });
-// var elasticsearch = require('elasticsearch');
-// var client = new elasticsearch.Client({
-//   host: '10.3.132.185:9200',
-//   log: 'trace'
-// });
+
 client.ping({
   requestTimeout: 30000,
 }, function (error) {
@@ -18,36 +23,27 @@ client.ping({
   }
 });
 
-// curl 10.3.132.185:9200/logstash-2018.09.14/_search?pretty=true --header "Content-Type: application/json" -d
-// '{
-//     "aggs" : {
-//       "type_count" : {
-//         "cardinality" : {
-//           "field" : "status.keyword"
-//         }
-//       }
-//     }
-// }'
 
 client.search({
-  index: 'logstash-2018.09.14',
-  // body: {
-  //   aggs : {
-  //     type_count : {
-  //       cardinality : {
-  //         field : "status.keyword"
-  //       }
-  //     }
-  //   }
-  // }
+  index: 'logstash-2018.12.05',
+  body: {
+    aggs : {
+      type_count : {
+        cardinality : {
+          field : "status.keyword"
+        }
+      }
+    }
+  }
 }).then(function (resp) {
   console.log('res',resp);
-    var hits = resp.hits.hits;
+    // var hits = resp.hits.hits;
 }, function (err) {
     console.trace(err.message);
 });
 
 $(document).ready(function(){
+  var maxValue = document.getElementById("maxValue").value;
   for(var i=0;i<256;i++){
     active[i] = {};
     blockIP.push({'name': 'Faculty'+i, 'ip': '158.108.'+i+'.0/24'})
@@ -55,8 +51,8 @@ $(document).ready(function(){
       active[i][j] = 0;
     }
   }
-  console.log(blockIP);
-  console.log("ip",inSubNet('192.31.252.63', '192.30.252.0/22'));
+  // console.log(blockIP);
+  // console.log("ip",inSubNet('192.31.252.63', '192.30.252.0/22'));
   Papa.parse('/assets/csv/login-20170102-anon.csv',{
      delimiter: " ",
      header: false,
@@ -87,38 +83,91 @@ $(document).ready(function(){
            // console.log('add',active[ipv4[2]][ipv4[3]]);
          }
        }
-       var data = [];
-       var x = [];
+
+
        var max = 0;
        for(var i=0;i<256;i++){
          x.push(i+'');
          for(var j=0;j<256;j++){
-           if(active[i][j]>0){
-             data.push([j,i,active[i][j]]);
-           }else{
-             data.push([j,i,'-']);
+           for(var k of blockIP){
+             if(inSubNet('158.108.'+i+'.'+j, k.ip)){
+               faculty = k.name;
+               if(active[i][j]>0){
+                 if(test[k.name] == null){
+                   test[k.name] = [[j,i,active[i][j]]];
+                 }else{
+                   test[k.name].push([j,i,active[i][j]]);
+                 }
+
+                 // console.log(test[k.name]);
+                 // if(active[i][j]>9){
+                 //   dataA.push([j,i,active[i][j]]);
+                 // }else{
+                 //   dataB.push([j,i,active[i][j]]);
+                 // }
+                 // data.push([j,i,active[i][j]]);
+               }else{
+                 // data.push([j,i,'-']);
+                 if(test[k.name] == null){
+                   test[k.name] = [[j,i,'-']];
+                 }else{
+                   test[k.name].push([j,i,'-']);
+                 }
+
+               }
+
+             }
            }
+
 
            if(active[i][j]>max){
              max = active[i][j];
            }
          }
        }
-       drawActive(data,x,x,max);
+       console.log(test);
+
+       Object.keys(test).forEach(function(key) {
+         series.push(
+           {
+               name: key,
+               type: 'heatmap',
+               data: test[key],
+               itemStyle: {
+                   emphasis: {
+                       shadowBlur: 10,
+                       shadowColor: 'rgba(0, 0, 0, 0.5)'
+                   }
+               }
+           }
+         );
+         legend.push({
+           name: key,
+           icon: 'circle',
+           textStyle: {
+               color: 'white'
+           }
+         });
+       });
+
+       drawActive(data,x,x,max,8);
      }
   });
 })
 
-function drawActive(data,x,y,max) {
+function drawActive(data,x,y,max,split) {
+  max = parseInt(max);
+  split = parseInt(split);
+  // console.log(data,x,y,max);
   var dom = document.getElementById("container");
+  let existInstance = echarts.getInstanceByDom(dom);
+  if (existInstance) {
+    if (true) {
+      echarts.dispose(existInstance);
+    }
+  }
   var myChart = echarts.init(dom);
   option = null;
-
-  //
-  // data = data.map(function (item) {
-  //   // console.log(item);
-  //     return [item[1], item[0], item[2] || '-'];
-  // });
 
   option = {
       tooltip: {
@@ -126,7 +175,7 @@ function drawActive(data,x,y,max) {
           // formatter: '{c}'
           formatter: function (obj) {
             var value = obj.value;
-            // console.log(value);
+            // console.log(obj);
             var ip = '158.108.' + value[1] + '.' + value[0];
             var faculty ='';
             for(var j of blockIP){
@@ -141,7 +190,11 @@ function drawActive(data,x,y,max) {
                 + 'IP : 158.108.' + value[1] + '.' + value[0]
                 + '</div>'
                 + 'count ：' + value[2]
+                + obj['seriesName']
         }
+      },
+      legend: {
+          data: legend
       },
       animation: false,
       dataZoom: [{
@@ -219,10 +272,10 @@ function drawActive(data,x,y,max) {
       visualMap: {
         type: 'piecewise',
         min: 0,
-        max: 100,
+        max: max,
         calculable: true,
         realtime: false,
-        splitNumber: 8,
+        splitNumber: split,
         // text: ['High', 'Low'],
         textStyle: {
           color: '#eee',
@@ -231,25 +284,7 @@ function drawActive(data,x,y,max) {
         //     color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
         // }
     },
-      series: [
-        {
-            name: 'Active IP',
-            type: 'heatmap',
-            // coordinateSystem: 'geo',
-            data: data,
-            // label: {
-            //     normal: {
-            //         show: true
-            //     }
-            // },
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        },
-      ]
+      series: series
   };;
   if (option && typeof option === "object") {
       myChart.setOption(option, true);
