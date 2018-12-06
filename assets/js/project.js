@@ -1,5 +1,52 @@
 var active = {};
 var blockIP = [];
+var client = new $.es.Client({
+  hosts: '10.3.132.185:9200'
+});
+// var elasticsearch = require('elasticsearch');
+// var client = new elasticsearch.Client({
+//   host: '10.3.132.185:9200',
+//   log: 'trace'
+// });
+client.ping({
+  requestTimeout: 30000,
+}, function (error) {
+  if (error) {
+    console.error('elasticsearch cluster is down!');
+  } else {
+    console.log('All is well');
+  }
+});
+
+// curl 10.3.132.185:9200/logstash-2018.09.14/_search?pretty=true --header "Content-Type: application/json" -d
+// '{
+//     "aggs" : {
+//       "type_count" : {
+//         "cardinality" : {
+//           "field" : "status.keyword"
+//         }
+//       }
+//     }
+// }'
+
+client.search({
+  index: 'logstash-2018.09.14',
+  // body: {
+  //   aggs : {
+  //     type_count : {
+  //       cardinality : {
+  //         field : "status.keyword"
+  //       }
+  //     }
+  //   }
+  // }
+}).then(function (resp) {
+  console.log('res',resp);
+    var hits = resp.hits.hits;
+}, function (err) {
+    console.trace(err.message);
+});
+
 $(document).ready(function(){
   for(var i=0;i<256;i++){
     active[i] = {};
@@ -236,3 +283,12 @@ function inSubNet(ip, subnet)
     }
     else return false;
 };
+
+// var slider = document.getElementById("myRange");
+// var output = document.getElementById("demo");
+// output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+// slider.oninput = function() {
+//     output.innerHTML = this.value;
+// }

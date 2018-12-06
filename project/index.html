@@ -6,6 +6,8 @@
        <script src="/assets/js/papaparse.min.js"></script>
        <script src="/assets/js/moment.js"></script>
        <script src="/assets/js/bootstrap.min.js"></script>
+       <script src="/assets/js/elasticsearch.min.js"></script>
+       <script src="/assets/js/elasticsearch.jquery.min.js"></script>
        <script src="/assets/js/project.js"></script>
        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
        <link rel="stylesheet" href="/assets/css/project.css">
@@ -21,10 +23,26 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Faculty</a>
       </li>
+
+
     </ul>
     <div class="container-fluid" >
       <div class="row" style="height:100%;">
-        <div class="col-12 col-md-12" style="height:100%;">
+        <div class="col-3 col-md-3" style="height:100%;padding-top: 15px;">
+          <div class="card">
+            <div class="card-header">
+              Control Box
+            </div>
+            <div class="card-body">
+              <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+              </div>
+              <a href="#" class="btn btn-primary">draw Graph</a>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-9 col-md-9" style="height:100%;">
           <div id="container" style="height: 100;"></div>
         </div>
       </div>
