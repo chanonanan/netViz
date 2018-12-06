@@ -25,41 +25,38 @@
     /* background: #f3f3f3; */
 }
 
-.slidecontainer {
-    width: 100%; /* Width of the outside container */
+.toggle-on.btn {
+    /* padding-right: 0; */
+    padding-top: 0.25em;
+    border: 1px solid #ccc;
 }
 
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+.toggle-off.btn {
+    /* padding-left: 0; */
+    padding-top: 0.25em;
+    border: 1px solid #ccc;
 }
 
-/* Mouse-over effects */
-.slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
+.toggle-handle{
+    border-color: #ccc;
 }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
+.left{
+  text-align: right;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  vertical-align: middle;
 }
 
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
+.card-body .row{
+  padding-bottom: 0.5em;
+}
+
+input{
+  border: 1px solid #ccc;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
 }

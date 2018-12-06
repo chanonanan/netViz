@@ -9,6 +9,8 @@
        <script src="/assets/js/elasticsearch.min.js"></script>
        <script src="/assets/js/elasticsearch.jquery.min.js"></script>
        <script src="/assets/js/project.js"></script>
+       <script src="/assets/js/bootstrap-toggle.min.js"></script>
+       <link rel="stylesheet" href="/assets/css/bootstrap-toggle.min.css">
        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
        <link rel="stylesheet" href="/assets/css/project.css">
        <link rel="stylesheet" href="/assets/css/fontawesome/all.css">
@@ -26,7 +28,7 @@
 
 
     </ul>
-    <div class="container-fluid" >
+    <div class="container-fluid">
       <div class="row" style="height:100%;">
         <div class="col-3 col-md-3" style="height:100%;padding-top: 15px;">
           <div class="card">
@@ -34,15 +36,32 @@
               Control Box
             </div>
             <div class="card-body">
-              <div class="slidecontainer">
-                <span>Max: </span>
-                <input type="number" min="1" value="50" id="maxValue">
+              <div class="row">
+                <div class="col-3 left">
+                  <span>Show by: </span>
+                </div>
+                <div class="col-9">
+                  <input type="checkbox" id="myRange" checked data-toggle="toggle" data-on="NO. Active" data-off="Zone" data-onstyle="default" data-offstyle="default">
+                </div>
               </div>
-              <div class="slidecontainer">
-                <span>Split: </span>
-                <input type="number" min="1" value="8" id="splitValue">
+              <div class="row">
+                <div class="col-3 left">
+                  <span>Max: </span>
+                </div>
+                <div class="col-9">
+                  <input type="number" min="1" id="maxValue">
+                </div>
               </div>
-              <a href="#" class="btn btn-primary" onclick="drawActive(data,x,x,maxValue.value,splitValue.value)">redraw Graph</a>
+              <div class="row">
+                <div class="col-3 left">
+                  <span>Split: </span>
+                </div>
+                <div class="col-9">
+                  <input type="number" min="1" value="8" id="splitValue">
+                </div>
+                <span>: </span>
+              </div>
+              <a href="#" class="btn btn-primary" onclick="genGraph()">redraw Graph</a>
             </div>
           </div>
 
