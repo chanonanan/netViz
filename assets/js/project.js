@@ -321,6 +321,7 @@ function drawActive() {
           // }
       },
       visualMap: {
+        seriesIndex: ['0','1','2','3','4','5','6','7'],
         type: 'piecewise',
         min: 0,
         max: maxValue,
@@ -333,10 +334,7 @@ function drawActive() {
         },
         top: '60%',
         align: 'right',
-        outOfRange: {
-            color: 'red',
-            // symbolSize: [30, 100]
-        }
+
     },
       series: series
   };;
