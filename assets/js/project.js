@@ -44,15 +44,12 @@ client.ping({
 
 
 client.search({
-  index: 'logstash-2018.12.06',
+  index: 'logstash-2018.12.07',
   body: {
-    aggs : {
-      type_count : {
-        cardinality : {
-          field : "status.keyword"
-        }
-      }
-    }
+    query: {
+            match_all : {}
+    },
+    size:10000,
   }
 }).then(function (resp) {
   console.log('res',resp);
@@ -62,6 +59,9 @@ client.search({
 });
 
 $(document).ready(function(){
+
+  $('.file-upload').file_upload();
+
   for(var i=0;i<256;i++){
     active[i] = {};
     for(var j=0;j<256;j++){
@@ -74,7 +74,7 @@ $(document).ready(function(){
      download: true,
      skipEmptyLines: true,
      complete: function(results) {
-       // console.log("results:", results);
+       console.log("results:", results);
        for(var i=0;i<results.data.length;i++){
          var ipv4 = results.data[i][5].split('.');
          if(ipv4[0] == '158' && ipv4[1] == '108'){
@@ -175,7 +175,7 @@ function genGraph(){
   console.log('top', top);
   series.push(
     {
-        name: 'Stay Alerted',
+        name: 'Alerted',
         type: 'effectScatter',
         data: top,
         symbolSize: 20,
@@ -195,7 +195,7 @@ function genGraph(){
     }
   );
   legend.push({
-    name: 'Stay Alerted',
+    name: 'Alerted',
     icon: 'circle',
     textStyle: {
         color: 'white'
@@ -378,4 +378,14 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+function upload() {
+  swal({
+    title: "Upload log success!",
+    text: " ",
+    icon: "success",
+    button: false,
+    timer:2500,
+  });
 }

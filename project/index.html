@@ -14,16 +14,19 @@
        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
        <link rel="stylesheet" href="/assets/css/project.css">
        <link rel="stylesheet" href="/assets/css/fontawesome/all.css">
-       <script type="text/javascript" src="/assets/js/echarts.js"></script>
+       <link rel="stylesheet" href="/assets/css/file-upload.css">
+       <script src="/assets/js/echarts.js"></script>
+       <script src="/assets/js/file-upload.js"></script>
+       <script src="/assets/js/sweetalert.min.js"></script>
    </head>
    <!-- f3f3f3 -->
    <body style="height: 100%; margin: 0;">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="#">NO. Active</a>
+        <a class="nav-link active" href="#">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Faculty</a>
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Upload log</a>
       </li>
 
 
@@ -37,37 +40,66 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-3 left">
+                <div class="col-4 left">
                   <span>Show by: </span>
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                   <input type="checkbox" id="myRange" checked data-toggle="toggle" data-on="NO. Active" data-off="Zone" data-onstyle="default" data-offstyle="default">
                 </div>
               </div>
               <div class="row">
-                <div class="col-3 left">
-                  <span>Max: </span>
+                <div class="col-4 left">
+                  <span>Stay Alerted at: </span>
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                   <input type="number" min="1" id="maxValue">
                 </div>
               </div>
               <div class="row">
-                <div class="col-3 left">
+                <div class="col-4 left">
                   <span>Split: </span>
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                   <input type="number" min="1" value="8" id="splitValue">
                 </div>
                 <span>: </span>
               </div>
-              <a href="#" class="btn btn-primary" onclick="genGraph()">redraw Graph</a>
+              <a class="btn redraw" onclick="genGraph()">redraw Graph</a>
             </div>
           </div>
 
         </div>
         <div class="col-9 col-md-9" style="height:100%;">
           <div id="container" style="height: 100;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Log Upload (Demo)</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <!-- <div class="form-group"> -->
+                    <div class="row justify-content-md-center">
+                        <label class="file-upload btn btn-primary">
+                            Browse for file ... <input type="file" />
+                        </label>
+                    </div>
+                <!-- </div> -->
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="upload()">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
